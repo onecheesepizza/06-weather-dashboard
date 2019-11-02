@@ -1,7 +1,8 @@
 // set global vars
-let apiKey = "";
+let apiKey = "22aab04f38cba604b811ed53606af177";
 let debugLog = false;
 let city = "";
+let currentCity = "";
 
 // developer console message
 function consoleMessage() {
@@ -48,7 +49,7 @@ function getCurrentConditions(event) {
         let currentWeatherHTML = `
             <h1 id="cityName">${response.name}</h1>
             <h2>Current Conditions</h2>
-            <ul>
+            <ul class="list-unstyled">
                 <li>Temperature: ${response.main.temp}&#8457;</li>
                 <li>Humidity: ${response.main.humidity}%</li>
                 <li>Wind Speed: ${response.wind.speed} mph</li>
@@ -95,7 +96,7 @@ function getFiveDayForecast(event) {
         // build forecast html template
         let fiveDayForecastHTML = `
         <h2>5-Day Forecast</h2>
-        <ul id="fiveDayForecastUl">`
+        <div id="fiveDayForecastUl" class="d-inline-flex flex-wrap ">`
         // loop over 5 day forecast response and build html template
         for (let i = 0; i < response.list.length; i++) {
             // get data for day from response
@@ -113,15 +114,19 @@ function getFiveDayForecast(event) {
             if (thisMoment.format("HH:mm:ss") === "11:00:00" || thisMoment.format("HH:mm:ss") === "12:00:00" || thisMoment.format("HH:mm:ss") === "13:00:00") {
                 // build html template with forecast data
                 fiveDayForecastHTML += `
-                <li>${thisMoment.format("YYYY-MM-DD HH:mm Z")}</li>
+                <div class="weather-card card m-2 p0">
+                <ul class="list-unstyled p-3">
+                <li>${thisMoment.format("MM/DD/YY")}</li>
                 <li class="weather-icon"><img src="${iconURL}"></li>
                 <li>Temp: ${dayData.main.temp}&#8457;</li>
                 <li>Humidity: ${dayData.main.humidity}%</li>
+                </ul>
+                </div>
                 <br>`;
             }
         };
         // build html template
-        fiveDayForecastHTML += `</ul>`;
+        fiveDayForecastHTML += `</div>`;
         // append to DOM
         $('#five-day-forecast').html(fiveDayForecastHTML);
     })
@@ -155,7 +160,13 @@ function renderCities() {
     for (let i = 0; i < localStorage.length; i++) {
         let city = localStorage.getItem("cities" + i);
         //create button for city
-        let cityEl = `<li><button type=button>${city}</button></li>`
+        let cityEl;
+        //if city is currentCity, set button class to active
+        if (city===currentCity){
+        cityEl = `<button type="button" class="list-group-item list-group-item-action active">${city}</button></li>`
+        } else {
+        cityEl = `<button type="button" class="list-group-item list-group-item-action">${city}</button></li>`
+        }
         //append to page
         $('#city-results').prepend(cityEl);
     }
@@ -169,6 +180,8 @@ function createEventListeners() {
         event.preventDefault();
         //set city to user input
         let city = $('#search-city').val()
+        //set current city
+        currentCity = $('#search-city').val()
         //get and render current conditions (calls getFiveDayForecast if successful)
         getCurrentConditions(event);
     });
@@ -178,6 +191,8 @@ function createEventListeners() {
         event.preventDefault();
         //set search input value to button value
         $('#search-city').val(event.target.textContent);
+        //set current city
+        currentCity=$('#search-city').val();
         //get and render current conditions (calls getFiveDayForecast if successful)
         getCurrentConditions(event);
     });
@@ -189,6 +204,7 @@ function mainApp() {
     consoleMessage();
     getCurrentConditions(event);
     createEventListeners();
+    currentCity=$('#search-city').val();
     renderCities();
 }
 
