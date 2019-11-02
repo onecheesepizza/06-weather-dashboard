@@ -226,9 +226,10 @@ function createEventListeners() {
     });
     // clear past city buttons from localStorage
     $("#clear-storage").on("click", function(event){
+        //clear localStorage
         localStorage.clear();
+        //render cities to clear them
         renderCities();
-        console.log("clear");
     });
 }
 
