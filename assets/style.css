@@ -1,12 +1,4 @@
-#search-city{
-    width:11.5em;
-}
-#search-button-icon{
-    width:15px;
-}
-.weather-card{
-    width: 9rem;
-}
+/* header styles */
 #header{
     background-size:cover;
     background-position-y: 50%;
@@ -21,4 +13,32 @@
     position:absolute;
     right:2em;
     bottom:2em;
+}
+/* page styles */
+#search-city{
+    width:80%;
+}
+#search-button{
+    /* float:right; */
+}
+#search-button-icon{
+    width:15px;
+    display:inline-block;
+}
+.weather-card{
+    width: 9rem;
+}
+/* responsive styles */
+@media only screen and (max-width: 992px) {
+    #search-city{
+        width:100%;
+    }
+    #search-button{
+        width:100%;
+    }
+}
+@media only screen and (max-width: 350px) {
+    #fiveDayForecastUl{
+        justify-content: center;
+    }
 }

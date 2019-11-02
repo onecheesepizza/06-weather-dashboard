@@ -17,17 +17,19 @@
 </div>
 <div id="content" class="container">
     <div class="row">
-    <div id="content-left" class="col-3 pr-5">
+    <!-- left content -->
+    <div id="content-left" class="col-md-3">
         <form>
             <label for="search-city">Search for a City</label>
             <div class="form-row">
-            <input id="search-city" class="form-control ml-1" name="city" value="Los Angeles"></input>
+            <input id="search-city" class="form-control" name="city" value="Los Angeles"></input>
             <button id="search-button" class="btn btn-primary" type='submit'><img id="search-button-icon" src="assets/magnifying-glass.svg" /></button>
             </div>
         </form>
         <ul id="city-results" class="list-group mt-4"></ul>
     </div>    
-    <div id="content-right" class="col-9 pl-3 pt-4">
+    <!-- right content -->
+    <div id="content-right" class="col-md-9 pt-4">
         <div id="current-weather">
         </div>
         <div id="five-day-forecast" class="mt-5">
