@@ -52,7 +52,7 @@ function getCurrentConditions(event) {
     let longitude;
     let latitude;
     // constructing a queryURL
-    let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&APPID=" + openWeatherMapsAPIKey;
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&APPID=" + openWeatherMapsAPIKey;
     //Current Conditions AJAX request and response
     $.ajax({
         url: queryURL,
