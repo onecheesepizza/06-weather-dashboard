@@ -172,34 +172,44 @@ function saveCity(newCity) {
 
 // render list of searched cities from localStorage
 function renderCities() {
-    //build key of last city written to localStorage
-    let lastCityKey="cities"+(localStorage.length-1);
-    //get last city from local Storage
-    lastCity=localStorage.getItem(lastCityKey);
-    //set search input value to last city
-    $('#search-city').attr("value", lastCity);
     //clear results
     $('#city-results').empty();
-    //get cities from storage and append to page
-    for (let i = 0; i < localStorage.length; i++) {
-        let city = localStorage.getItem("cities" + i);
-        //create button for city
-        let cityEl;
-        //if city is currentCity, set button class to active
-        if (city===currentCity){
-        cityEl = `<button type="button" class="list-group-item list-group-item-action active">${city}</button></li>`
+    //cases if localStorage is empty
+    if (localStorage.length===0){
+        if (lastCity){
+            $('#search-city').attr("value", lastCity);
         } else {
-        cityEl = `<button type="button" class="list-group-item list-group-item-action">${city}</button></li>`
+            $('#search-city').attr("value", "Los Angeles");
         }
-        //append to page
-        $('#city-results').prepend(cityEl);
-    }
-    //add clear button if there are cities
-    if (localStorage.length>0){
-        $('#clear-storage').html($('<a id="clear-storage" href="#">clear</a>'));
     } else {
-        $('#clear-storage').html('');
+        //build key of last city written to localStorage
+        let lastCityKey="cities"+(localStorage.length-1);
+        //get last city from local Storage
+        lastCity=localStorage.getItem(lastCityKey);
+        //set search input value to last city
+        $('#search-city').attr("value", lastCity);
+                //get cities from storage and append to page
+        for (let i = 0; i < localStorage.length; i++) {
+            let city = localStorage.getItem("cities" + i);
+            //create button for city
+            let cityEl;
+            //if city is currentCity, set button class to active
+            if (city===currentCity){
+            cityEl = `<button type="button" class="list-group-item list-group-item-action active">${city}</button></li>`
+            } else {
+            cityEl = `<button type="button" class="list-group-item list-group-item-action">${city}</button></li>`
+            }
+            //append to page
+            $('#city-results').prepend(cityEl);
+        }
+        //add clear button if there are cities
+        if (localStorage.length>0){
+            $('#clear-storage').html($('<a id="clear-storage" href="#">clear</a>'));
+        } else {
+            $('#clear-storage').html('');
+        }
     }
+    
 }
 
 // event listeners
