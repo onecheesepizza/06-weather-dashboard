@@ -1,8 +1,8 @@
 // set global vars
-let apiKey = "22aab04f38cba604b811ed53606af177";
+let openWeatherMapsAPIKey = "22aab04f38cba604b811ed53606af177";
 let debugLog = false;
 let city = "";
-let currentCity = "";
+let currentCity = "Los Angeles";
 
 // developer console message
 function consoleMessage() {
@@ -19,8 +19,29 @@ function getURLParams() {
     let urlParams = new URLSearchParams(window.location.search);
     // check url for API key and set variable
     if (urlParams.has('key')) {
-        apiKey = urlParams.get('key');
+     openWeatherMapsAPIKey = urlParams.get('key');
     }
+}
+
+// get image of current city from the Unsplash API
+function getBackgroundImage(){
+    //construct query URL
+    let unsplashKey="987d734859d674c4e4bc348d9bfe340d223694e86fe506b35997a51671897953"
+    let bgQuery="https://api.unsplash.com/search/photos?client_id="+unsplashKey+"&query="+currentCity;
+    //photo search AJAX call
+    $.ajax({
+        url: bgQuery,
+        method: "GET"
+    }).done(function (response) {
+        console.log(response);
+        //get first image from response
+        let bgImage = response.results[0].urls.full;
+        //get artist credit from response
+        let artistCredit = "Photo by "+response.results[0].user.name;
+        //set header background and artist credit
+        $('#header').attr("style", `background-image: url(${bgImage})`);
+        $('#artist-credit').text(artistCredit);
+    });
 }
 
 // get and render current conditions on openweathermaps API
@@ -32,7 +53,7 @@ function getCurrentConditions(event) {
     let longitude;
     let latitude;
     // constructing a queryURL
-    let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&APPID=" + apiKey;
+    let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&APPID=" + openWeatherMapsAPIKey;
     //Current Conditions AJAX request and response
     $.ajax({
         url: queryURL,
@@ -62,7 +83,7 @@ function getCurrentConditions(event) {
         longitude = response.coord.lon;
         // UV index AJAX request and response
         // constructing a url for the UV API
-        let uvQueryURL = "api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + longitude + "&APPID=" + apiKey;
+        let uvQueryURL = "api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + longitude + "&APPID=" + openWeatherMapsAPIKey;
         //CORS error fix. alternate solution needed. 
         uvQueryURL = "https://cors-anywhere.herokuapp.com/" + uvQueryURL;
         //ajax request and response
@@ -87,7 +108,7 @@ function getFiveDayForecast(event) {
     // event.preventDefault;
     let city = $('#search-city').val();
     // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + "&APPID=" + apiKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + "&APPID=" + openWeatherMapsAPIKey;
     // ajax request and response
     $.ajax({
         url: queryURL,
@@ -184,6 +205,7 @@ function createEventListeners() {
         currentCity = $('#search-city').val()
         //get and render current conditions (calls getFiveDayForecast if successful)
         getCurrentConditions(event);
+        getBackgroundImage();
     });
     // past city search buttons
     $('#city-results').on("click", function (event) {
@@ -195,6 +217,7 @@ function createEventListeners() {
         currentCity=$('#search-city').val();
         //get and render current conditions (calls getFiveDayForecast if successful)
         getCurrentConditions(event);
+        getBackgroundImage();
     });
 }
 
@@ -202,6 +225,7 @@ function createEventListeners() {
 function mainApp() {
     getURLParams();
     consoleMessage();
+    getBackgroundImage();
     getCurrentConditions(event);
     createEventListeners();
     currentCity=$('#search-city').val();
