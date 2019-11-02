@@ -2,6 +2,7 @@
 let openWeatherMapsAPIKey = "22aab04f38cba604b811ed53606af177";
 let debugLog = false;
 let currentCity = "";
+let lastCity = "";
 
 // developer console message
 function consoleMessage() {
@@ -32,7 +33,6 @@ function getBackgroundImage(){
         url: bgQuery,
         method: "GET"
     }).done(function (response) {
-        console.log(response);
         //get first image from response
         let bgImage = response.results[0].urls.full;
         //get artist credit from response
@@ -172,6 +172,12 @@ function saveCity(newCity) {
 
 // render list of searched cities from localStorage
 function renderCities() {
+    //build key of last city written to localStorage
+    let lastCityKey="cities"+(localStorage.length-1);
+    //get last city from local Storage
+    lastCity=localStorage.getItem(lastCityKey);
+    //set search input value to last city
+    $('#search-city').attr("value", lastCity);
     //clear results
     $('#city-results').empty();
     //get cities from storage and append to page
@@ -239,9 +245,9 @@ function mainApp() {
     getURLParams();
     currentCity=$('#search-city').val();
     getBackgroundImage();
+    renderCities();
     getCurrentConditions();
     createEventListeners();
-    renderCities();
 }
 
 mainApp();
