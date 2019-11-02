@@ -60,7 +60,7 @@ function getCurrentConditions(event) {
         //if a successful response for the provided city is received    
     }).done(function (response) {
         //create icon URL for current weather
-        currentWeatherIcon="http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+        currentWeatherIcon="https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
         // Unix Time UTC for response
         let currentTimeUTC = response.dt;
         // UTC Timezone Offset 
@@ -116,7 +116,7 @@ function getFiveDayForecast(event) {
     // event.preventDefault;
     let city = $('#search-city').val();
     // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + "&APPID=" + openWeatherMapsAPIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + "&APPID=" + openWeatherMapsAPIKey;
     // ajax request and response
     $.ajax({
         url: queryURL,
@@ -138,7 +138,7 @@ function getFiveDayForecast(event) {
             //moment.js moment
             let thisMoment = moment.unix(dayTimeUTC).utc().utcOffset(timeZoneOffsetHours);
             // create URL string for weather icon
-            let iconURL = "http://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png";
+            let iconURL = "https://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png";
             // only display mid-day forecasts, skip other hours. 
             if (thisMoment.format("HH:mm:ss") === "11:00:00" || thisMoment.format("HH:mm:ss") === "12:00:00" || thisMoment.format("HH:mm:ss") === "13:00:00") {
                 // build html template with forecast data
