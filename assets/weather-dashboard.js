@@ -1,8 +1,7 @@
 // set global vars
 let openWeatherMapsAPIKey = "22aab04f38cba604b811ed53606af177";
 let debugLog = false;
-let city = "";
-let currentCity = "Los Angeles";
+let currentCity = "";
 
 // developer console message
 function consoleMessage() {
@@ -60,8 +59,6 @@ function getCurrentConditions(event) {
         method: "GET"
         //if a successful response for the provided city is received    
     }).done(function (response) {
-        //save city to localStorage
-        saveCity(city);
         //re-render cities list
         renderCities();
         //get the five day forecast for the found city
@@ -191,6 +188,12 @@ function renderCities() {
         //append to page
         $('#city-results').prepend(cityEl);
     }
+    //add clear button if there are cities
+    if (localStorage.length>0){
+        $('#clear-storage').html($('<a id="clear-storage" href="#">clear</a>'));
+    } else {
+        $('#clear-storage').html('');
+    }
 }
 
 // event listeners
@@ -203,6 +206,8 @@ function createEventListeners() {
         let city = $('#search-city').val()
         //set current city
         currentCity = $('#search-city').val()
+        //save city to localStorage
+        saveCity(city);
         //get and render current conditions (calls getFiveDayForecast if successful)
         getCurrentConditions(event);
         getBackgroundImage();
@@ -219,16 +224,22 @@ function createEventListeners() {
         getCurrentConditions(event);
         getBackgroundImage();
     });
+    // clear past city buttons from localStorage
+    $("#clear-storage").on("click", function(event){
+        localStorage.clear();
+        renderCities();
+        console.log("clear");
+    });
 }
 
 // main app
 function mainApp() {
-    getURLParams();
     consoleMessage();
-    getBackgroundImage();
-    getCurrentConditions(event);
-    createEventListeners();
+    getURLParams();
     currentCity=$('#search-city').val();
+    getBackgroundImage();
+    getCurrentConditions();
+    createEventListeners();
     renderCities();
 }
 

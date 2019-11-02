@@ -18,12 +18,18 @@
 #search-city{
     width:80%;
 }
-#search-button{
-    /* float:right; */
-}
 #search-button-icon{
     width:15px;
     display:inline-block;
+}
+#city-results button{
+    text-transform: capitalize;
+}
+#clear-storage{
+    color:grey;
+    text-decoration: none;
+    font-size:.75em;
+    margin: .5em 0em 0em .5em;
 }
 .weather-card{
     width: 9rem;
