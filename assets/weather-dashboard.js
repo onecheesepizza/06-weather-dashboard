@@ -36,10 +36,10 @@ function getBackgroundImage(){
         //get first image from response
         let bgImage = response.results[0].urls.full;
         //get artist credit from response
-        let artistCredit = "Photo by "+response.results[0].user.name;
+        let artistCredit = `Photo by <a href="${response.results[0].user.links.html}">${response.results[0].user.name}</a> on <a href="https://unsplash.com">Unsplash</a>`;
         //set header background and artist credit
         $('#header').attr("style", `background-image: url(${bgImage})`);
-        $('#artist-credit').text(artistCredit);
+        $('#artist-credit').html(artistCredit);
     });
 }
 

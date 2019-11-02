@@ -14,6 +14,10 @@
     right:2em;
     bottom:2em;
 }
+#artist-credit a{
+    color:white;
+    text-decoration:none;
+}
 /* page styles */
 #search-city{
     width:80%;
