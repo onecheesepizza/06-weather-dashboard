@@ -59,6 +59,15 @@ function getCurrentConditions(event) {
         method: "GET"
         //if a successful response for the provided city is received    
     }).done(function (response) {
+        //create icon URL for current weather
+        currentWeatherIcon="http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+        // Unix Time UTC for response
+        let currentTimeUTC = response.dt;
+        // UTC Timezone Offset 
+        let currentTimeZoneOffset = response.timezone; // seconds
+        let currentTimeZoneOffsetHours = currentTimeZoneOffset / 60 / 60; // hours
+        // moment.js object for response time
+        let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTimeZoneOffsetHours);
         //re-render cities list
         renderCities();
         //get the five day forecast for the found city
@@ -66,7 +75,9 @@ function getCurrentConditions(event) {
         //build html
         let currentWeatherHTML = `
             <h1 id="cityName">${response.name}</h1>
-            <h2>Current Conditions</h2>
+            <h6>${currentMoment.format("MM/DD/YY h:mma")} local time</h6>
+            <br>
+            <h3>Current Conditions<img src="${currentWeatherIcon}"></h3>
             <ul class="list-unstyled">
                 <li>Temperature: ${response.main.temp}&#8457;</li>
                 <li>Humidity: ${response.main.humidity}%</li>
