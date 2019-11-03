@@ -199,17 +199,22 @@ function renderCities() {
         lastCity=localStorage.getItem(lastCityKey);
         //set search input value to last city
         $('#search-city').attr("value", lastCity);
-                //get cities from storage and append to page
+        //get cities from storage and append to page
         for (let i = 0; i < localStorage.length; i++) {
             let city = localStorage.getItem("cities" + i);
             //create button for city
             let cityEl;
-            //if city is currentCity, set button class to active
-            if (city===currentCity){
-            cityEl = `<button type="button" class="list-group-item list-group-item-action active">${city}</button></li>`
-            } else {
-            cityEl = `<button type="button" class="list-group-item list-group-item-action">${city}</button></li>`
+            console.log(currentCity);
+            //check if currentCity is already set, set to lastCity if not
+            if (currentCity===""){
+                currentCity=lastCity;
             }
+            //if stored city is currentCity, set button class to active
+            if (city === currentCity) {
+                cityEl = `<button type="button" class="list-group-item list-group-item-action active">${city}</button></li>`;
+            } else {
+                cityEl = `<button type="button" class="list-group-item list-group-item-action">${city}</button></li>`;
+            } 
             //append to page
             $('#city-results').prepend(cityEl);
         }
@@ -264,9 +269,8 @@ function createEventListeners() {
 function mainApp() {
     consoleMessage();
     getURLParams();
-    currentCity=$('#search-city').val();
-    getBackgroundImage();
     renderCities();
+    getBackgroundImage();
     getCurrentConditions();
     createEventListeners();
 }
