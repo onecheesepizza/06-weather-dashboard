@@ -7,10 +7,9 @@ body {transition: all .25s;}
     color:white;
     background-color:rgb(83, 83, 83);
     position:relative !important;
-    font-size: 1.25em;
 }
 #header h1{
-    font-size:5em !important;
+    font-size:5em;
 }
 #artist-credit{
     font-size:.5em;
@@ -51,7 +50,10 @@ body {transition: all .25s;}
         width:100%;
     }
 }
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 575px) {
+    #header h1{
+        font-size:15vw !important;
+    }
     #fiveDayForecastUl{
         justify-content: center;
     }
