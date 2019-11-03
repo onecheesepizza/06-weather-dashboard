@@ -73,6 +73,9 @@ function getCurrentConditions(event) {
         method: "GET"
         //if a successful response for the provided city is received    
     }).done(function (response) {
+        //save city to localStorage
+        saveCity(city);
+        $('#search-error').text("");
         //create icon URL for current weather
         currentWeatherIcon="https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
         // Unix Time UTC for response
@@ -125,6 +128,7 @@ function getCurrentConditions(event) {
         //if the API fails, probably due to the city not being found
         .fail(function () {
             console.log("Current Weather API Error: city likely not found.");
+            $('#search-error').text("City not found.");
         });
 }
 
@@ -251,12 +255,10 @@ function createEventListeners() {
         //override submit button behavior
         event.preventDefault();
         //set city to user input
-        let city = $('#search-city').val()
+        currentCity = $('#search-city').val()
         //set current city
         currentCity = $('#search-city').val()
-        //save city to localStorage
-        saveCity(city);
-        //get and render current conditions (calls getFiveDayForecast if successful)
+        //get and render current conditions (calls saveCity and getFiveDayForecast if successful)
         getCurrentConditions(event);
     });
     // past city search buttons
