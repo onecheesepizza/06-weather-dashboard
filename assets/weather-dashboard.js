@@ -33,13 +33,26 @@ function getBackgroundImage(){
         url: bgQuery,
         method: "GET"
     }).done(function (response) {
-        //get first image from response
-        let bgImage = response.results[0].urls.full;
-        //get artist credit from response
-        let artistCredit = `Photo by <a href="${response.results[0].user.links.html}">${response.results[0].user.name}</a> on <a href="https://unsplash.com">Unsplash</a>`;
-        //set header background and artist credit
-        $('#header').attr("style", `background-image: url(${bgImage})`);
-        $('#artist-credit').html(artistCredit);
+        if (response.total>=0){
+            //get first image from response
+            let bgImage = response.results[0].urls.regular;
+            //get artist credit from response
+            let artistCredit = `Photo by <a href="${response.results[0].user.links.html}">${response.results[0].user.name}</a> on <a href="https://unsplash.com">Unsplash</a>`;
+            //set header background and artist credit
+            $('#header').attr("style", `background-image: url(${bgImage})`);
+            $('#artist-credit').html(artistCredit);
+        } else {
+            //fallback bg image for empty results
+            console.log("No Unsplash Image Results");
+            $('#header').attr("style", `background-image: url("https://images.unsplash.com/photo-1530908295418-a12e326966ba?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjk5MjM4fQ")`);
+            $('#artist-credit').html(`Photo by <a href="https://unsplash.com/@kenrickmills">Kenrick Mills</a> on <a href="https://unsplash.com">Unsplash</a>`);
+        }
+        
+    }).fail(function(response){
+        //fallback bg image for failed calls
+        console.log("Unsplash API Error: rate limit likely exceeded.");
+        $('#header').attr("style", `background-image: url("https://images.unsplash.com/photo-1530908295418-a12e326966ba?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjk5MjM4fQ")`);
+        $('#artist-credit').html(`Photo by <a href="https://unsplash.com/@kenrickmills">Kenrick Mills</a> on <a href="https://unsplash.com">Unsplash</a>`);
     });
 }
 
@@ -48,6 +61,7 @@ function getCurrentConditions(event) {
     // event.preventDefault;
     //get city name from user input
     let city = $('#search-city').val();
+    currentCity= $('#search-city').val();
     //init coordinate vars
     let longitude;
     let latitude;
@@ -70,14 +84,17 @@ function getCurrentConditions(event) {
         let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTimeZoneOffsetHours);
         //re-render cities list
         renderCities();
+        //get bg image
+        getBackgroundImage();
         //get the five day forecast for the found city
         getFiveDayForecast(event);
+        //set header
+        $('#header-text').text(response.name);
         //build html
         let currentWeatherHTML = `
-            <h1 id="cityName">${response.name}</h1>
+            <h3>Current Conditions<img src="${currentWeatherIcon}"></h3>
             <h6>${currentMoment.format("MM/DD/YY h:mma")} local time</h6>
             <br>
-            <h3>Current Conditions<img src="${currentWeatherIcon}"></h3>
             <ul class="list-unstyled">
                 <li>Temperature: ${response.main.temp}&#8457;</li>
                 <li>Humidity: ${response.main.humidity}%</li>
@@ -107,7 +124,7 @@ function getCurrentConditions(event) {
     })
         //if the API fails, probably due to the city not being found
         .fail(function () {
-            console.log("Current Weather API Error");
+            console.log("Current Weather API Error: city likely not found.");
         });
 }
 
@@ -241,7 +258,6 @@ function createEventListeners() {
         saveCity(city);
         //get and render current conditions (calls getFiveDayForecast if successful)
         getCurrentConditions(event);
-        getBackgroundImage();
     });
     // past city search buttons
     $('#city-results').on("click", function (event) {
@@ -269,7 +285,6 @@ function mainApp() {
     consoleMessage();
     getURLParams();
     renderCities();
-    getBackgroundImage();
     getCurrentConditions();
     createEventListeners();
 }
