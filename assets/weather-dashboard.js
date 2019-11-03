@@ -122,7 +122,15 @@ function getCurrentConditions(event) {
             //get UV Index from response
             uvIndex = response.value;
             //add UV Index to current weather
-            $('#uvIndex').text("Mid-day UV Index: " + uvIndex)
+            $('#uvIndex').html(`Mid-day UV Index: <span id="uvVal"> ${uvIndex}</span>`);
+            //add background color to UV Index
+            if (uvIndex>=0 && uvIndex<3.3){
+                $('#uvVal').attr("class", "uv-green");
+            } else if (uvIndex>=3.3 && uvIndex<6.6){
+                $('#uvVal').attr("class", "uv-orange");
+            } else if (uvIndex>=6.6 && uvIndex<10){
+                $('#uvVal').attr("class", "uv-red");
+            }
         });
     })
         //if the API fails, probably due to the city not being found
