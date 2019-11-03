@@ -124,12 +124,16 @@ function getCurrentConditions(event) {
             //add UV Index to current weather
             $('#uvIndex').html(`Mid-day UV Index: <span id="uvVal"> ${uvIndex}</span>`);
             //add background color to UV Index
-            if (uvIndex>=0 && uvIndex<3.3){
+            if (uvIndex>=0 && uvIndex<3){
                 $('#uvVal').attr("class", "uv-green");
-            } else if (uvIndex>=3.3 && uvIndex<6.6){
+            } else if (uvIndex>=3 && uvIndex<6){
+                $('#uvVal').attr("class", "uv-yellow");
+            } else if (uvIndex>=6 && uvIndex<8){
                 $('#uvVal').attr("class", "uv-orange");
-            } else if (uvIndex>=6.6 && uvIndex<10){
+            } else if (uvIndex>=8 && uvIndex<11){
                 $('#uvVal').attr("class", "uv-red");
+            } else if (uvIndex>=11){
+                $('#uvVal').attr("class", "uv-violet");
             }
         });
     })

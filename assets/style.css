@@ -39,13 +39,19 @@ body {transition: all .25s;}
     margin: .5em 0em 0em .5em;
 }
 .uv-green{
-    background-color: rgba(0, 128, 0, 0.25);
+    background-color: rgba(28, 228, 28, 0.25);
+}
+.uv-yellow{
+    background-color:rgba(255, 255, 0, 0.418);
 }
 .uv-orange{
     background-color: rgba(255, 166, 0, 0.25);
 }
 .uv-red{
     background-color: rgba(255, 0, 0, 0.25);
+}
+.uv-violet{
+    background-color: rgba(238, 130, 238, 0.25);
 }
 .weather-card{
     width: 9rem;
