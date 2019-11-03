@@ -204,7 +204,6 @@ function renderCities() {
             let city = localStorage.getItem("cities" + i);
             //create button for city
             let cityEl;
-            console.log(currentCity);
             //check if currentCity is already set, set to lastCity if not
             if (currentCity===""){
                 currentCity=lastCity;
