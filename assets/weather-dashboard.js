@@ -32,7 +32,7 @@ function getBackgroundImage(){
         url: bgQuery,
         method: "GET"
     }).done(function (response) {
-        if (response.total>=0){
+        if (response.total>0){
             //get first image from response
             let bgImage = response.results[0].urls.regular;
             //get artist credit from response
