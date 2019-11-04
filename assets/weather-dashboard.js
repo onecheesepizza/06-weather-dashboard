@@ -1,6 +1,5 @@
 // set global vars
 let openWeatherMapsAPIKey = "22aab04f38cba604b811ed53606af177";
-let debugLog = false;
 let currentCity = "";
 let lastCity = "";
 
@@ -158,7 +157,7 @@ function getFiveDayForecast(event) {
         // build forecast html template
         let fiveDayForecastHTML = `
         <h2>5-Day Forecast</h2>
-        <div id="fiveDayForecastUl" class="d-inline-flex flex-wrap ">`
+        <div id="fiveDayForecastUl" class="d-inline-flex flex-wrap ">`;
         // loop over 5 day forecast response and build html template
         for (let i = 0; i < response.list.length; i++) {
             // get data for day from response
