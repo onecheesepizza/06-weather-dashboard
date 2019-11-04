@@ -25,7 +25,7 @@ function getURLParams() {
 // get image of current city from the Unsplash API
 function getBackgroundImage(){
     //construct query URL
-    let unsplashKey="987d734859d674c4e4bc348d9bfe340d223694e86fe506b35997a51671897953"
+    let unsplashKey="987d734859d674c4e4bc348d9bfe340d223694e86fe506b35997a51671897953";
     let bgQuery="https://api.unsplash.com/search/photos?client_id="+unsplashKey+"&query="+currentCity;
     //photo search AJAX call
     $.ajax({
@@ -266,9 +266,9 @@ function createEventListeners() {
         //override submit button behavior
         event.preventDefault();
         //set city to user input
-        currentCity = $('#search-city').val()
+        currentCity = $('#search-city').val();
         //set current city
-        currentCity = $('#search-city').val()
+        currentCity = $('#search-city').val();
         //get and render current conditions (calls saveCity and getFiveDayForecast if successful)
         getCurrentConditions(event);
     });
