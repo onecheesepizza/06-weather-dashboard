@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/onecheesepizza/06-weather-dashboard#readme",
   "dependencies": {
-    "axios": "^0.19.2",
-    "dotenv": "^8.2.0"
+    "axios": "^0.19.2"
   }
 }
