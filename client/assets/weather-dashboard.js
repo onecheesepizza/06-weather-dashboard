@@ -1,5 +1,4 @@
 // set global vars
-let openWeatherMapsAPIKey = "22aab04f38cba604b811ed53606af177";
 let currentCity = "";
 let lastCity = "";
 
@@ -7,31 +6,23 @@ let lastCity = "";
 function consoleMessage() {
     let consoleMessage = `
     Developed by Brian Moore 🍕
+    https://onecheesepizza.dev
     https://github.com/onecheesepizza/06-weather-dashboard
     `
     console.log(consoleMessage);
 }
 
-// get URL parameters
-function getURLParams() {
-    // get URL parameters
-    let urlParams = new URLSearchParams(window.location.search);
-    // check url for API key and set variable
-    if (urlParams.has('key')) {
-     openWeatherMapsAPIKey = urlParams.get('key');
-    }
-}
-
 // get image of current city from the Unsplash API
 function getBackgroundImage(){
     //construct query URL
-    let unsplashKey="987d734859d674c4e4bc348d9bfe340d223694e86fe506b35997a51671897953";
-    let bgQuery="https://api.unsplash.com/search/photos?client_id="+unsplashKey+"&query="+currentCity;
+    let bgQuery="/api/get-unsplash/?query="+currentCity;
     //photo search AJAX call
     $.ajax({
         url: bgQuery,
-        method: "GET"
+        method: "POST"
     }).done(function (response) {
+        //parse response
+        response = JSON.parse(response);
         if (response.total>0){
             //get first image from response
             let bgImage = response.results[0].urls.regular;
@@ -57,7 +48,6 @@ function getBackgroundImage(){
 
 // get and render current conditions on openweathermaps API
 function getCurrentConditions(event) {
-    // event.preventDefault;
     //get city name from user input
     let city = $('#search-city').val();
     currentCity= $('#search-city').val();
@@ -65,18 +55,20 @@ function getCurrentConditions(event) {
     let longitude;
     let latitude;
     // constructing a queryURL
-    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&APPID=" + openWeatherMapsAPIKey;
+    let queryURL = "/api/current-conditions?city="+currentCity;
     //Current Conditions AJAX request and response
     $.ajax({
         url: queryURL,
-        method: "GET"
+        method: "POST"
         //if a successful response for the provided city is received    
     }).done(function (response) {
+        //parse response
+        response = JSON.parse(response);
         //save city to localStorage
         saveCity(city);
         $('#search-error').text("");
         //create icon URL for current weather
-        currentWeatherIcon="https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+        currentWeatherIcon="https://openweathermap.org/img/w/"+response.weather[0].icon+".png";
         // Unix Time UTC for response
         let currentTimeUTC = response.dt;
         // UTC Timezone Offset 
@@ -108,16 +100,16 @@ function getCurrentConditions(event) {
         //get longitude and latitude for UV index call
         latitude = response.coord.lat;
         longitude = response.coord.lon;
-        // UV index AJAX request and response
+        // --- UV index AJAX request and response
         // constructing a url for the UV API
-        let uvQueryURL = "api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + longitude + "&APPID=" + openWeatherMapsAPIKey;
-        //CORS error fix. alternate solution needed. 
-        uvQueryURL = "https://cors-anywhere.herokuapp.com/" + uvQueryURL;
+        const uvQueryURL = "/api/uvi/"+"?lat="+latitude+"&lon="+longitude;
         //ajax request and response
         $.ajax({
             url: uvQueryURL,
-            method: "GET"
+            method: "POST"
         }).done(function (response) {
+            //parse response
+            response = JSON.parse(response);
             //get UV Index from response
             uvIndex = response.value;
             //add UV Index to current weather
@@ -148,12 +140,14 @@ function getFiveDayForecast(event) {
     // event.preventDefault;
     let city = $('#search-city').val();
     // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + "&APPID=" + openWeatherMapsAPIKey;
+    var queryURL = "/api/five-day/"+"?city="+city;
     // ajax request and response
     $.ajax({
         url: queryURL,
-        method: "GET"
+        method: "POST"
     }).done(function (response) {
+        // parse response
+        response = JSON.parse(response);
         // build forecast html template
         let fiveDayForecastHTML = `
         <h2>5-Day Forecast</h2>
@@ -296,7 +290,6 @@ function createEventListeners() {
 // main app
 function mainApp() {
     consoleMessage();
-    getURLParams();
     renderCities();
     getCurrentConditions();
     createEventListeners();
