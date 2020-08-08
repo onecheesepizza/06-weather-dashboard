@@ -16,3 +16,5 @@ else
     echo "UNSPLASH_API_KEY NOT set"
 fi
 echo "inserted environment variables to netlify.toml"
+echo "branch"
+echo ${BRANCH}
