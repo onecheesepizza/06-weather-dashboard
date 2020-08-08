@@ -5,7 +5,7 @@
   "main": "\"\"",
   "scripts": {
     "dev": "./scripts/dev.sh",
-    "build": "chmod +x ./scripts/build.sh && ./scripts/build.sh",
+    "prebuild": "chmod +x ./scripts/build.sh && ./scripts/build.sh",
     "deploy": "git push && netlify watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
