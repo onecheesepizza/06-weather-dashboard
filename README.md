@@ -3,7 +3,7 @@
 
 A responsive and dynamic weather dashboard built with HTML, CSS, Javascript, Bootstrap, jQuery, Moment.js, and the browser's localStorage.
 
-Data from OpenWeather API & Unsplash API served via [Netlify Functions](https://www.netlify.com/products/functions/).
+Data from OpenWeather API & Unsplash API proxied via [Netlify Redirects](https://docs.netlify.com/routing/redirects/).
 
 ![HTML5](https://img.shields.io/badge/HTML5-orange)
 ![CSS](https://img.shields.io/badge/CSS-blue)
