@@ -8,30 +8,38 @@
   # Default build command.
   command = "npm run build"
 
+[context.deploy-preview.environment]
+  OPENWEATHER_API_KEY = "OPENWEATHER_API_KEY_REPLACE"
+  UNSPLASH_API_KEY = "UNSPLASH_API_KEY_REPLACE"
+  
+[context.branch-deploy.environment]
+  OPENWEATHER_API_KEY = "OPENWEATHER_API_KEY_REPLACE"
+  UNSPLASH_API_KEY = "UNSPLASH_API_KEY_REPLACE"
+
 [[redirects]]
   from = "/api/current-conditions/"
-  to = "https://api.openweathermap.org/data/2.5/weather?units=imperial&APPID=OPENWEATHER_API_KEY"
+  to = "https://api.openweathermap.org/data/2.5/weather?units=imperial&APPID=OPENWEATHER_API_KEY_REPLACE"
   query = {q = ":q"}
   status = 200
   force = true # COMMENT: ensure that we always redirect
   headers = {X-From = "Netlify"}
 [[redirects]]
   from = "/api/uvi/"
-  to = "https://api.openweathermap.org/data/2.5/uvi?&APPID=OPENWEATHER_API_KEY"
+  to = "https://api.openweathermap.org/data/2.5/uvi?&APPID=OPENWEATHER_API_KEY_REPLACE"
   query = {lat = ":lat", lon = ":lon"}
   status = 200
   force = true # COMMENT: ensure that we always redirect
   headers = {X-From = "Netlify"}
 [[redirects]]
   from = "/api/five-day/"
-  to = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&APPID=OPENWEATHER_API_KEY"
+  to = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&APPID=OPENWEATHER_API_KEY_REPLACE"
   query = {q = ":q"}
   status = 200
   force = true # COMMENT: ensure that we always redirect
   headers = {X-From = "Netlify"}
 [[redirects]]
   from = "/api/get-unsplash"
-  to = "https://api.unsplash.com/search/photos?client_id=UNSPLASH_API_KEY"
+  to = "https://api.unsplash.com/search/photos?client_id=UNSPLASH_API_KEY_REPLACE"
   query = {query = ":query"}
   status = 200
   force = true # COMMENT: ensure that we always redirect
