@@ -5,7 +5,6 @@
   "main": "\"\"",
   "scripts": {
     "dev": "./scripts/dev.sh",
-    "prebuild": "cd functions && npm i",
     "build": "./scripts/build.sh",
     "deploy": "git push && netlify watch",
     "test": "echo \"Error: no test specified\" && exit 1"
