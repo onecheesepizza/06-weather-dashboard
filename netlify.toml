@@ -6,15 +6,7 @@
   publish = "client"
 
   # Default build command.
-  command = "#"
-
-[context.deploy-preview.environment]
-  OPENWEATHER_API_KEY = "OPENWEATHER_API_KEY_REPLACE"
-  UNSPLASH_API_KEY = "UNSPLASH_API_KEY_REPLACE"
-
-[context.branch-deploy.environment]
-  OPENWEATHER_API_KEY = "OPENWEATHER_API_KEY_REPLACE"
-  UNSPLASH_API_KEY = "UNSPLASH_API_KEY_REPLACE"
+  command = "npm run build"
 
 [[redirects]]
   from = "/api/current-conditions/"
