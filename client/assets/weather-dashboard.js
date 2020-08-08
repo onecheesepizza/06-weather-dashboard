@@ -19,10 +19,8 @@ function getBackgroundImage(){
     //photo search AJAX call
     $.ajax({
         url: bgQuery,
-        method: "POST"
+        method: "GET"
     }).done(function (response) {
-        //parse response
-        response = JSON.parse(response);
         if (response.total>0){
             //get first image from response
             let bgImage = response.results[0].urls.regular;
@@ -55,15 +53,13 @@ function getCurrentConditions(event) {
     let longitude;
     let latitude;
     // constructing a queryURL
-    let queryURL = "/api/current-conditions?city="+currentCity;
+    let queryURL = "/api/current-conditions?q="+currentCity;
     //Current Conditions AJAX request and response
     $.ajax({
         url: queryURL,
-        method: "POST"
+        method: "GET"
         //if a successful response for the provided city is received    
     }).done(function (response) {
-        //parse response
-        response = JSON.parse(response);
         //save city to localStorage
         saveCity(city);
         $('#search-error').text("");
@@ -106,10 +102,8 @@ function getCurrentConditions(event) {
         //ajax request and response
         $.ajax({
             url: uvQueryURL,
-            method: "POST"
+            method: "GET"
         }).done(function (response) {
-            //parse response
-            response = JSON.parse(response);
             //get UV Index from response
             uvIndex = response.value;
             //add UV Index to current weather
@@ -140,14 +134,14 @@ function getFiveDayForecast(event) {
     // event.preventDefault;
     let city = $('#search-city').val();
     // constructing a queryURL variable we will use instead of the literal string inside of the ajax method
-    var queryURL = "/api/five-day/"+"?city="+city;
+    var queryURL = "/api/five-day/"+"?q="+city;
     // ajax request and response
     $.ajax({
         url: queryURL,
-        method: "POST"
+        method: "GET"
     }).done(function (response) {
         // parse response
-        response = JSON.parse(response);
+        // response = JSON.parse(response);
         // build forecast html template
         let fiveDayForecastHTML = `
         <h2>5-Day Forecast</h2>
