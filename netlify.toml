@@ -6,7 +6,7 @@
   publish = "client"
 
   # Default build command.
-  command = "chmod +x ./scripts/build.sh && ./scripts/build.sh && #"
+  command = "chmod +x ./scripts/build.sh && ./scripts/build.sh"
 
 [[redirects]]
   from = "/api/current-conditions/"
