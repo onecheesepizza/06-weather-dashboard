@@ -6,15 +6,33 @@
   publish = "client"
 
   # Default build command.
-  command = "#"
+  command = "npm run build"
 
-  # Directory with the serverless Lambda functions to deploy to AWS.
-  functions = "functions"
-
-# redirect API requests to Netlify functions
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/api/current-conditions/"
+  to = "https://api.openweathermap.org/data/2.5/weather?q=:q&units=imperial&APPID=OPENWEATHER_API_KEY_REPLACE"
+  query = {q = ":q"}
   status = 200
-  force = true # COMMENT: ensure that we always redirect
+  force = true
+  headers = {X-From = "Netlify"}
+[[redirects]]
+  from = "/api/uvi/"
+  to = "https://api.openweathermap.org/data/2.5/uvi?lat=:lat&lon=:lon&APPID=OPENWEATHER_API_KEY_REPLACE"
+  query = {lat = ":lat", lon = ":lon"}
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+[[redirects]]
+  from = "/api/five-day/"
+  to = "https://api.openweathermap.org/data/2.5/forecast?q=:q&units=imperial&APPID=OPENWEATHER_API_KEY_REPLACE"
+  query = {q = ":q"}
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+[[redirects]]
+  from = "/api/get-unsplash"
+  to = "https://api.unsplash.com/search/photos?query=:query&client_id=UNSPLASH_API_KEY_REPLACE"
+  query = {query = ":query"}
+  status = 200
+  force = true
   headers = {X-From = "Netlify"}
