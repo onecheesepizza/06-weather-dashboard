@@ -17,7 +17,7 @@
   headers = {X-From = "Netlify"}
 [[redirects]]
   from = "/api/uvi/"
-  to = "https://api.openweathermap.org/data/2.5/uvi?q=:q&APPID=OPENWEATHER_API_KEY_REPLACE"
+  to = "https://api.openweathermap.org/data/2.5/uvi?lat=:lat&lon=:lon&APPID=OPENWEATHER_API_KEY_REPLACE"
   query = {lat = ":lat", lon = ":lon"}
   status = 200
   force = true # COMMENT: ensure that we always redirect
