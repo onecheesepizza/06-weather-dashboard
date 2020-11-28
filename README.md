@@ -15,7 +15,7 @@ Data from OpenWeather API & Unsplash API proxied via [Netlify Redirects](https:/
 [![Unsplash API](https://img.shields.io/badge/Unsplash%20API-black)](https://unsplash.com/documentation)
 [![Netlify](https://img.shields.io/badge/Netlify-blue)](https://www.netlify.com/)
 
-Live Site: [https://ocp-weather-dash.netlify.app](https://ocp-weather-dash.netlify.app) 
+Live Site: [https://znode-weather-dash.netlify.app](https://znode-weather-dash.netlify.app) 
 
 Deployed to [Netlify](https://www.netlify.com/)  
 [![Netlify Status](https://api.netlify.com/api/v1/badges/65770d23-e1a6-4f20-aa22-0d96851ec85f/deploy-status)](https://app.netlify.com/sites/ocp-weather-dash/deploys)
