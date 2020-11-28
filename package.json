@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/onecheesepizza/06-weather-dashboard.git"
+    "url": "git+https://github.com/zebranode/06-weather-dashboard.git"
   },
   "author": "",
   "license": "",
   "bugs": {
-    "url": "https://github.com/onecheesepizza/06-weather-dashboard/issues"
+    "url": "https://github.com/zebranode/06-weather-dashboard/issues"
   },
-  "homepage": "https://github.com/onecheesepizza/06-weather-dashboard#readme",
+  "homepage": "https://github.com/zebranode/06-weather-dashboard#readme",
   "dependencies": {
     "axios": "^0.19.2"
   }

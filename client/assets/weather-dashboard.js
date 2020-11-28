@@ -5,9 +5,9 @@ let lastCity = "";
 // developer console message
 function consoleMessage() {
     let consoleMessage = `
-    Developed by Brian Moore 🍕
-    https://onecheesepizza.dev
-    https://github.com/onecheesepizza/06-weather-dashboard
+    developed by zebranode 🦓
+    https://zebranode.dev
+    https://github.com/zebranode/06-weather-dashboard
     `
     console.log(consoleMessage);
 }
